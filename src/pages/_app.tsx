@@ -1,15 +1,48 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Head from 'next/head'
+import {
+  Config,
+  DAppProvider,
+  MetamaskConnector,
+  CoinbaseWalletConnector,
+} from '@usedapp/core'
+import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import Layout from '../layouts'
+import Head from 'next/head'
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  HOME_CHAINID,
+  RPC,
+  SUPPORTED_CHAINS,
+} from '../constants'
 import { DefaultSeo } from 'next-seo'
+
+const config: Config = {
+  readOnlyChainId: HOME_CHAINID,
+  readOnlyUrls: RPC,
+  autoConnect: true,
+  multicallVersion: 2,
+  notifications: {
+    checkInterval: 3000,
+    expirationPeriod: 1,
+  },
+  connectors: {
+    walletConnect: new WalletConnectConnector({ rpc: RPC }),
+    metamask: new MetamaskConnector(),
+    coinbase: new CoinbaseWalletConnector(),
+  },
+  pollingInterval: 5000,
+  networks: SUPPORTED_CHAINS,
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo
-        defaultTitle={process.env.NEXT_PUBLIC_APP_NAME || ''}
-        titleTemplate={`%s - ${process.env.NEXT_PUBIC_APP_NAME || ''}`}
-        description={process.env.NEXT_PUBLIC_APP_DESCRIPTION || ''}
+        defaultTitle={APP_NAME}
+        titleTemplate={`%s | ${APP_NAME}`}
+        description={APP_DESCRIPTION}
       />
       <Head>
         <meta
@@ -18,9 +51,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <DAppProvider config={config}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </DAppProvider>
     </>
   )
 }

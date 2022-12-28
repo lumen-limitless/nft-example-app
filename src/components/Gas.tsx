@@ -1,7 +1,7 @@
 import { useGasPrice } from '@usedapp/core'
+import clsx from 'clsx'
 import { formatUnits } from 'ethers/lib/utils'
 import React from 'react'
-import cn from 'clsx'
 import Spinner from './ui/Spinner'
 interface Props {
   className?: string
@@ -10,7 +10,7 @@ interface Props {
 export default function Gas({ className }: Props) {
   const gasPrice = useGasPrice()
   return (
-    <div className={cn(' flex items-center justify-center gap-1', className)}>
+    <div className={clsx(' flex items-center justify-center gap-1', className)}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"

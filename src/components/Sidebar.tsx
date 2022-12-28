@@ -4,10 +4,9 @@ import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useClickAway } from 'react-use'
 import { social } from '../constants'
-import cn, { clsx } from 'clsx'
+import { clsx } from 'clsx'
 import Button from './ui/Button'
 import ExternalLink from './ui/ExternalLink'
-
 import { useUI } from '../hooks/useUI'
 
 export default function Sidebar() {
@@ -26,7 +25,7 @@ export default function Sidebar() {
         animate={{ opacity: 1, translateX: '0%' }}
         exit={{ opacity: 0, translateX: '100%' }}
         transition={{ ease: 'easeOut', duration: 0.33 }}
-        className="bg-dark/80 fixed top-0  right-0 z-40 h-screen w-[75vw] backdrop-blur-md"
+        className="bg-black/20 fixed top-0  right-0 z-40 h-screen w-[75vw] backdrop-blur-md"
       >
         <div className="relative flex h-full w-full flex-col gap-3  pt-36 ">
           <Button

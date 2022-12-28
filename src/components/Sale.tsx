@@ -22,7 +22,7 @@ const PUBLIC_PRICE = parseEther('0.0001')
 const contract = new Contract(CONTRACTS.address, CONTRACTS.abi) as NFT
 
 export default function Sale() {
-  const [numTokens, setNumTokens] = useState<number>(1)
+  const [numTokens, setNumTokens] = useState<number | ''>(1)
   const setModalView = useStore((state) => state.setModalView)
   const { account, chainId } = useEthers()
   const balance = useEtherBalance(account)
@@ -49,6 +49,8 @@ export default function Sale() {
               Connect Wallet
             </Button>
           </div>
+        ) : chainId !== HOME_CHAINID ? (
+          <>Switch to Goerli</>
         ) : mintedCount?.value[0].toNumber() === MAX_MINTABLE ? (
           <>
             <Logo />
@@ -63,18 +65,20 @@ export default function Sale() {
               min={1}
               onInput={(e) => {
                 e.preventDefault()
-                if (e.currentTarget.value !== '') {
-                  setNumTokens(
-                    parseInt(e.currentTarget.value) >
-                      MAX_MINTABLE - mintedCount?.value[0].toNumber()
-                      ? MAX_MINTABLE - mintedCount?.value[0].toNumber()
-                      : parseInt(e.currentTarget.value)
-                  )
+                if (e.currentTarget.value === '') {
+                  setNumTokens('')
+                  return
                 }
+                setNumTokens(
+                  parseInt(e.currentTarget.value) >
+                    MAX_MINTABLE - mintedCount?.value[0].toNumber()
+                    ? MAX_MINTABLE - mintedCount?.value[0].toNumber()
+                    : parseInt(e.currentTarget.value)
+                )
               }}
               value={numTokens}
               placeholder="Enter number of tokens"
-              className=" focus:border-purple w-full   rounded bg-black  p-3 shadow-blue-800/50  focus:shadow-md"
+              className=" focus:border-purple w-full   rounded bg-black  p-3 border-gray-800 border-2 ring ring-black"
             />
             <TransactionButton
               color="green"
@@ -82,14 +86,15 @@ export default function Sale() {
               method={mint}
               requirements={{
                 requirement:
+                  numTokens !== '' &&
                   parseBalance(balance ?? 0) >=
-                  numTokens * parseBalance(PUBLIC_PRICE),
+                    numTokens * parseBalance(PUBLIC_PRICE),
                 message: 'Insufficient Balance',
               }}
               name="Mint"
               args={[
                 numTokens ?? 1,
-                { value: PUBLIC_PRICE.mul(numTokens ?? 1) },
+                { value: PUBLIC_PRICE.mul(numTokens !== '' ? numTokens : 1) },
               ]}
             />
           </>

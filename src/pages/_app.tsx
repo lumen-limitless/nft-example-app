@@ -6,7 +6,7 @@ import {
   MetamaskConnector,
   CoinbaseWalletConnector,
 } from '@usedapp/core'
-import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
+// import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import Layout from '../layouts'
 import Head from 'next/head'
 import {
@@ -28,7 +28,7 @@ const config: Config = {
     expirationPeriod: 1,
   },
   connectors: {
-    walletConnect: new WalletConnectConnector({ rpc: RPC }),
+    // walletConnect: new WalletConnectConnector({ rpc: RPC }),
     metamask: new MetamaskConnector(),
     coinbase: new CoinbaseWalletConnector(),
   },

@@ -17,6 +17,7 @@
     "@iconify/react": "^4.0.1",
     "@react-three/drei": "^9.48.1",
     "@react-three/fiber": "^8.9.1",
+    "@sentry/nextjs": "^7.28.1",
     "@usedapp/core": "^1.2.2",
     "@usedapp/wallet-connect-connector": "^1.0.1",
     "ethereum-blockies-base64": "^1.0.2",

@@ -1,5 +1,5 @@
-import Button, { ButtonProps } from './Button'
-import Spinner from './Spinner'
+import Button, { ButtonProps } from './ui/Button'
+import Spinner from './ui/Spinner'
 
 type Requirement = {
   requirement: boolean

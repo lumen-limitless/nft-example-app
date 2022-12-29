@@ -12,7 +12,7 @@ import { parseBalance } from '../functions'
 import useStore from '../store/useStore'
 import Gas from './Gas'
 import Logo from './Logo'
-import TransactionButton from './ui/TransactionButton'
+import TransactionButton from './TransactionButton'
 import Button from './ui/Button'
 import { NFT } from '../typechain/contracts'
 
@@ -78,7 +78,7 @@ export default function Sale() {
               }}
               value={numTokens}
               placeholder="Enter number of tokens"
-              className=" focus:border-purple w-full   rounded bg-black  p-3 border-gray-800 border-2 ring ring-black"
+              className="  w-full   rounded bg-black  p-3 border-gray-800 border-2  focus:outline-none focus:border-gray-700"
             />
             <TransactionButton
               color="green"

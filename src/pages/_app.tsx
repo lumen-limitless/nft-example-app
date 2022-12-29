@@ -5,17 +5,13 @@ import {
   DAppProvider,
   MetamaskConnector,
   CoinbaseWalletConnector,
+  Hardhat,
+  Goerli,
 } from '@usedapp/core'
 // import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import Layout from '../layouts'
 import Head from 'next/head'
-import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  HOME_CHAINID,
-  RPC,
-  SUPPORTED_CHAINS,
-} from '../constants'
+import { APP_DESCRIPTION, APP_NAME, HOME_CHAINID, RPC } from '../constants'
 import { DefaultSeo } from 'next-seo'
 
 const config: Config = {
@@ -33,7 +29,7 @@ const config: Config = {
     coinbase: new CoinbaseWalletConnector(),
   },
   pollingInterval: 5000,
-  networks: SUPPORTED_CHAINS,
+  networks: [Hardhat, Goerli],
 }
 
 function MyApp({ Component, pageProps }: AppProps) {

@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import ExternalLink from './ui/ExternalLink'
 import Logo from './Logo'
 import { Icon } from '@iconify/react'
@@ -13,7 +12,6 @@ import { useUI } from '../hooks/useUI'
 export default function Nav() {
   const { account, chainId, switchNetwork } = useEthers()
   const { setModalView, toggleViewingSidebar } = useUI()
-  const { pathname } = useRouter()
 
   return (
     <>
@@ -26,7 +24,7 @@ export default function Nav() {
               <Link
                 href={'/'}
                 className={clsx(
-                  'border-blue border-b-2',
+                  'border-blue-800 border-b-2',
                   'inline-flex w-10 items-center  justify-center p-1  text-sm font-medium text-gray-100 hover:text-gray-300'
                 )}
               >

@@ -1,12 +1,13 @@
-import { useEthers } from '@usedapp/core'
-import { RPC } from '../constants'
-import { useUI } from '../hooks/useUI'
+import React from 'react'
 import Button from './ui/Button'
+import { useEthers } from '@usedapp/core'
+import { useToast, useUI } from '../hooks'
+import { RPC } from '../constants'
 
 export default function Connect() {
   const { activateBrowserWallet, activate } = useEthers()
   const { toggleViewingModal } = useUI()
-
+  const t = useToast()
   const onWalletConnect = async () => {
     try {
       const WalletConnectConnector = await import(
@@ -16,10 +17,22 @@ export default function Connect() {
         rpc: RPC,
         qrcode: true,
       })
-      activate(walletconnect)
+      await activate(walletconnect).then(() => toggleViewingModal(false))
+    } catch (err) {
+      console.error(err)
+      t('error', 'Failed to connect wallet')
+      return
+    }
+  }
+
+  const onBrowserWallet = (type: string) => {
+    try {
+      activateBrowserWallet({ type: type })
       toggleViewingModal(false)
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
+      t('error', 'Failed to connect wallet')
+      return
     }
   }
 
@@ -31,10 +44,7 @@ export default function Connect() {
           full
           size="lg"
           color="gray"
-          onClick={() => {
-            activateBrowserWallet({ type: 'metamask' })
-            toggleViewingModal(false)
-          }}
+          onClick={() => onBrowserWallet('metamask')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,10 +136,7 @@ export default function Connect() {
           full
           size="lg"
           color="gray"
-          onClick={() => {
-            activateBrowserWallet({ type: 'coinbase' })
-            toggleViewingModal(false)
-          }}
+          onClick={() => onBrowserWallet('coinbase')}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

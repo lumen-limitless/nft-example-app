@@ -6,13 +6,13 @@ import { useUI } from '../hooks/useUI'
 import Logo from '../components/Logo'
 import Nav from '../components/Nav'
 import { ReactNode } from 'react'
+import Modal from '../components/ui/Modal'
+import Connect from '../components/Connect'
+import Sidebar from '../components/Sidebar'
 
 const Toaster = dynamic(() =>
   import('react-hot-toast').then((mod) => mod.Toaster)
 )
-const Sidebar = dynamic(() => import('../components/Sidebar'))
-const Modal = dynamic(() => import('../components/ui/Modal'))
-const Connect = dynamic(() => import('../components/Connect'))
 
 const ModalUI = () => {
   const { toggleViewingModal, viewingModal, modalView } = useUI()

@@ -17,7 +17,7 @@ import { DefaultSeo } from 'next-seo'
 const config: Config = {
   readOnlyChainId: HOME_CHAINID,
   readOnlyUrls: RPC,
-  autoConnect: true,
+  autoConnect: false,
   multicallVersion: 2,
   notifications: {
     checkInterval: 3000,

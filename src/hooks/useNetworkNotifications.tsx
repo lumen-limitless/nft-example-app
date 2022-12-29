@@ -12,15 +12,15 @@ export const useNetworkNotifications = () => {
       notifications.forEach((n) => {
         if (n.type === 'transactionStarted') {
           removeNotification({ notificationId: n.id, chainId })
-          t('info', `${n.transactionName} transaction submitted`)
+          t('info', `Transaction submitted`)
         }
         if (n.type === 'transactionSucceed') {
           removeNotification({ notificationId: n.id, chainId })
-          t('success', `${n.transactionName} transaction confirmed`)
+          t('success', `Transaction confirmed`)
         }
         if (n.type === 'transactionFailed') {
           removeNotification({ notificationId: n.id, chainId })
-          t('error', `${n.transactionName} transaction failed`)
+          t('error', `Transaction failed`)
         }
       })
     }

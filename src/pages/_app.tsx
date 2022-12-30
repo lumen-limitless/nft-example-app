@@ -8,10 +8,9 @@ import {
   Hardhat,
   Goerli,
 } from '@usedapp/core'
-// import { WalletConnectConnector } from '@usedapp/wallet-connect-connector'
 import Layout from '../layouts'
 import Head from 'next/head'
-import { APP_DESCRIPTION, APP_NAME, HOME_CHAINID, RPC } from '../constants'
+import { HOME_CHAINID, RPC } from '../constants'
 import { DefaultSeo } from 'next-seo'
 
 const config: Config = {
@@ -24,7 +23,6 @@ const config: Config = {
     expirationPeriod: 1,
   },
   connectors: {
-    // walletConnect: new WalletConnectConnector({ rpc: RPC }),
     metamask: new MetamaskConnector(),
     coinbase: new CoinbaseWalletConnector(),
   },
@@ -36,9 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <DefaultSeo
-        defaultTitle={APP_NAME}
-        titleTemplate={`%s | ${APP_NAME}`}
-        description={APP_DESCRIPTION}
+        defaultTitle={process.env.NEXT_PUBLIC_APP_NAME || ''}
+        titleTemplate={`%s | ${process.env.NEXT_PUBLIC_APP_NAME || ''}`}
+        description={process.env.NEXT_PUBLIC_APP_DESCRIPTION || ''}
       />
       <Head>
         <meta

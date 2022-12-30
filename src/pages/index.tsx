@@ -23,8 +23,8 @@ const MintPage: NextPage = () => {
               <div className=" bg-gradient-radial from-blue-500/20 absolute  -top-5 -right-10 h-[500px]  w-[500px] to-transparent blur-3xl" />
               <div className=" bg-gradient-radial from-purple-500/20 absolute  -bottom-5 -left-10 h-[500px]  w-[500px] to-transparent blur-3xl" />
               <Canvas>
-                <ambientLight intensity={0.1} />
-                <spotLight color={[5, 255, 255]} intensity={5} />
+                <ambientLight intensity={0.5} />
+
                 <Suspense>
                   <Model />
                 </Suspense>

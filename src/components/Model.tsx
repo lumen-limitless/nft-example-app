@@ -12,15 +12,15 @@ type GLTFResult = GLTF & {
   nodes: {
     Cube: THREE.Mesh
   }
+  materials: {
+    Material: THREE.MeshStandardMaterial
+  }
 }
-
-type ActionName = 'CubeAction'
-type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
 export default function Model(props: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>(null)
-  const { nodes } = useGLTF('/cube.glb') as unknown as GLTFResult
-  // const { actions } = useAnimations<GLTFActions>(animations, group)
+  const { nodes, materials } = useGLTF('/cube.glb') as unknown as GLTFResult
+
   useFrame(
     ({ clock }) =>
       group.current && (group.current.rotation.y = clock.getElapsedTime())
@@ -30,7 +30,10 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
       <group name="Scene">
         <mesh
           name="Cube"
+          castShadow
+          receiveShadow
           geometry={nodes.Cube.geometry}
+          material={materials.Material}
           rotation={[0, 0, 0]}
           scale={[1.5, 1.5, 1.5]}
         />

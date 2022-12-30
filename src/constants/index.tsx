@@ -1,10 +1,6 @@
-import { Goerli, Hardhat, Mainnet } from '@usedapp/core'
+import { Goerli, Hardhat } from '@usedapp/core'
 import contractsInfo from '../json/contractsInfo.json'
 import contractsInfoLocal from '../json/contractsInfo.local.json'
-
-export const APP_NAME = 'NFT EXAMPLE'
-
-export const APP_DESCRIPTION = 'NFT Example app and smart contracts'
 
 export const social = [
   {

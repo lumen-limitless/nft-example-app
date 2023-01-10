@@ -1,5 +1,5 @@
 import { BigNumber } from 'ethers'
-import { parseEther } from 'ethers/lib/utils'
+import { parseEther, parseUnits } from 'ethers/lib/utils'
 import React, { useState } from 'react'
 import { CONTRACTS } from '../constants'
 import Logo from './Logo'
@@ -16,7 +16,7 @@ import Spinner from './ui/Spinner'
 import { useToast } from '../hooks'
 
 const MAX_MINTABLE = 5
-const PUBLIC_PRICE = parseEther('0.0001')
+const PUBLIC_PRICE = '0.0001'
 
 export default function Sale() {
   const t = useToast()
@@ -40,7 +40,7 @@ export default function Sale() {
     abi: NFT__factory.abi,
     functionName: 'buyPublic',
     args: [numTokens || 0],
-    overrides: { value: PUBLIC_PRICE.mul(numTokens || 0) },
+    overrides: { value: parseUnits(PUBLIC_PRICE).mul(numTokens || 0) },
     enabled:
       mintedCount?.lt(MAX_MINTABLE) &&
       balance?.value.gte(numTokens || 0 * 0.0001),
@@ -92,7 +92,13 @@ export default function Sale() {
         className="  w-full   rounded bg-black  p-3 border-gray-800 border-2  focus:outline-none focus:border-gray-700"
       />
       <Button full disabled={!write} color="blue" onClick={() => write?.()}>
-        {isLoading ? <Spinner /> : 'Buy NFT'}
+        {isLoading ? (
+          <Spinner />
+        ) : !balance?.value.gte(numTokens || 0 * 0.0001) ? (
+          'Insufficient balance'
+        ) : (
+          'Buy NFT'
+        )}
       </Button>
     </div>
   )

@@ -4,14 +4,12 @@ import Logo from './Logo'
 import { Icon } from '@iconify/react'
 import Button from './ui/Button'
 import { clsx } from 'clsx'
-import { useEthers } from '@usedapp/core'
-import { HOME_CHAINID, social } from '../constants'
-import AccountInfo from './Account'
+import { social } from '../constants'
 import { useUI } from '../hooks/useUI'
+import { ConnectKitButton } from 'connectkit'
 
 export default function Nav() {
-  const { account, chainId, switchNetwork } = useEthers()
-  const { setModalView, toggleViewingSidebar } = useUI()
+  const { toggleViewingSidebar } = useUI()
 
   return (
     <>
@@ -44,39 +42,7 @@ export default function Nav() {
               ))}
             </div>
 
-            {!account ? (
-              <Button
-                size="sm"
-                color="blue"
-                onClick={() => setModalView('connect')}
-              >
-                Connect Wallet
-              </Button>
-            ) : chainId !== HOME_CHAINID ? (
-              <Button
-                size="sm"
-                color="yellow"
-                onClick={() => switchNetwork(HOME_CHAINID)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  role="img"
-                  width="1em"
-                  height="1em"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 1024 1024"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm-32 232c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v272c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V296zm32 440a48.01 48.01 0 0 1 0-96a48.01 48.01 0 0 1 0 96z"
-                  />
-                </svg>
-                Switch Network
-              </Button>
-            ) : (
-              <AccountInfo />
-            )}
+            <ConnectKitButton />
 
             <Button
               className="sm:hidden"

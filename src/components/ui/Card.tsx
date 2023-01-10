@@ -1,55 +1,25 @@
-import React from 'react'
-import cn from 'clsx'
-
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  header?: React.ReactChild
-  footer?: React.ReactChild
-  backgroundImage?: string
-  title?: string
-  description?: string
-}
-
 export default function Card({
-  header = undefined,
-  footer = undefined,
-  backgroundImage = '',
-  title = '',
-  description = '',
   children,
-  className,
-}: CardProps) {
+  className = '',
+}: {
+  children: React.ReactNode
+  className: string
+}) {
   return (
-    <div
-      className={cn(
-        className,
-        'relative flex-1 flex-grow rounded bg-gradient-to-tr from-[#57AEFF33] to-[#0A04BE33] shadow-md ring-2 backdrop-blur-md transition-all'
-      )}
-      style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'contain',
-        backgroundPosition: 'center bottom',
-      }}
-    >
-      {header && (
-        <>
-          <div className="bg-dark-700/30 w-full rounded-t ">{header}</div>
-        </>
-      )}
-
-      <div className="h-full px-2 py-4 sm:p-8">
-        {title && (
-          <div className="pb-3 text-lg font-medium leading-6 text-primary">
-            {title}
-          </div>
-        )}
-        {description && (
-          <div className="text-base text-secondary">{description}</div>
-        )}
-        {children}
-      </div>
-
-      {footer && <>{footer}</>}
+    <div className={[className, 'flex flex-col'].filter(Boolean).join(' ')}>
+      {children}
     </div>
   )
 }
+const Header = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative flex">{children}</div>
+)
+Card.Header = Header
+const Body = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative  p-3 md:p-6 lg:p-9 ">{children}</div>
+)
+Card.Body = Body
+const Footer = ({ children }: { children: React.ReactNode }) => (
+  <div className="relative flex">{children}</div>
+)
+Card.Footer = Footer

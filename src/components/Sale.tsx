@@ -1,105 +1,99 @@
-import {
-  useCalls,
-  useContractFunction,
-  useEtherBalance,
-  useEthers,
-} from '@usedapp/core'
-import { Contract } from 'ethers'
+import { BigNumber } from 'ethers'
 import { parseEther } from 'ethers/lib/utils'
 import React, { useState } from 'react'
-import { HOME_CHAINID, CONTRACTS } from '../constants'
-import { parseBalance } from '../functions'
-import useStore from '../store/useStore'
-import Gas from './Gas'
+import { CONTRACTS } from '../constants'
 import Logo from './Logo'
-import TransactionButton from './TransactionButton'
+import {
+  useAccount,
+  useBalance,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+} from 'wagmi'
+import { NFT__factory } from '../typechain'
 import Button from './ui/Button'
-import { NFT } from '../typechain/contracts'
+import Spinner from './ui/Spinner'
+import { useToast } from '../hooks'
 
 const MAX_MINTABLE = 5
 const PUBLIC_PRICE = parseEther('0.0001')
 
-const contract = new Contract(CONTRACTS.address, CONTRACTS.abi) as NFT
-
 export default function Sale() {
-  const [numTokens, setNumTokens] = useState<number | ''>(1)
-  const setModalView = useStore((state) => state.setModalView)
-  const { account, chainId } = useEthers()
-  const balance = useEtherBalance(account)
-  const [mintedCount] = useCalls(
-    [account && { contract, method: 'mintedCount', args: [account] }],
-    { chainId: HOME_CHAINID }
-  )
-
-  const mint = useContractFunction(contract, 'buyPublic', {
-    transactionName: 'Mint',
+  const t = useToast()
+  const [numTokens, setNumTokens] = useState<number | ''>('')
+  const { address, isConnected } = useAccount()
+  const { data: balance } = useBalance({
+    address: address,
+    formatUnits: 'ether',
   })
-  return (
-    <>
-      <div className="relative z-20   mx-auto mb-32 flex w-full max-w-md flex-col items-center justify-center gap-3 text-center md:mb-0">
-        {!account ? (
-          <div className=" flex w-full flex-col place-items-center gap-3">
-            <Logo />
-            <Button
-              size="sm"
-              color="blue"
-              className="max-w-sm"
-              onClick={() => setModalView('connect')}
-            >
-              Connect Wallet
-            </Button>
-          </div>
-        ) : chainId !== HOME_CHAINID ? (
-          <>Switch to Goerli</>
-        ) : mintedCount?.value[0].toNumber() === MAX_MINTABLE ? (
-          <>
-            <Logo />
-            <p>You have minted the max amount of NFT&apos;s available to you</p>
-          </>
-        ) : (
-          <>
-            <Gas className="absolute top-0 right-0" />
-            <Logo />
-            <input
-              type="number"
-              min={1}
-              onInput={(e) => {
-                e.preventDefault()
-                if (e.currentTarget.value === '') {
-                  setNumTokens('')
-                  return
-                }
-                setNumTokens(
-                  parseInt(e.currentTarget.value) >
-                    MAX_MINTABLE - mintedCount?.value[0].toNumber()
-                    ? MAX_MINTABLE - mintedCount?.value[0].toNumber()
-                    : parseInt(e.currentTarget.value)
-                )
-              }}
-              value={numTokens}
-              placeholder="Enter number of tokens"
-              className="  w-full   rounded bg-black  p-3 border-gray-800 border-2  focus:outline-none focus:border-gray-700"
-            />
-            <TransactionButton
-              color="green"
-              full
-              method={mint}
-              requirements={{
-                requirement:
-                  numTokens !== '' &&
-                  parseBalance(balance ?? 0) >=
-                    numTokens * parseBalance(PUBLIC_PRICE),
-                message: 'Insufficient Balance',
-              }}
-              name="Mint"
-              args={[
-                numTokens ?? 1,
-                { value: PUBLIC_PRICE.mul(numTokens !== '' ? numTokens : 1) },
-              ]}
-            />
-          </>
-        )}
+
+  const { data: mintedCount }: { data: BigNumber | undefined } =
+    useContractRead({
+      address: CONTRACTS.address as `0x${string}`,
+      abi: NFT__factory.abi,
+      functionName: 'mintedCount',
+      args: [address],
+      enabled: isConnected,
+    })
+  const { config } = usePrepareContractWrite({
+    address: CONTRACTS.address as `0x${string}`,
+    abi: NFT__factory.abi,
+    functionName: 'buyPublic',
+    args: [numTokens || 0],
+    overrides: { value: PUBLIC_PRICE.mul(numTokens || 0) },
+    enabled:
+      mintedCount?.lt(MAX_MINTABLE) &&
+      balance?.value.gte(numTokens || 0 * 0.0001),
+  })
+  const { write, isLoading } = useContractWrite({
+    ...config,
+    onSuccess: () =>
+      t('success', `${config.functionName} transaction submitted.`),
+  })
+
+  if (!isConnected)
+    return (
+      <div className="flex flex-col items-center mx-auto text-center">
+        <Logo />
+        <p>Connect a wallet to continue.</p>
       </div>
-    </>
+    )
+
+  if (mintedCount?.gte(MAX_MINTABLE))
+    return (
+      <div className="flex flex-col items-center mx-auto text-center">
+        <Logo />
+        <p>You have minted the maximum amount of tokens available.</p>
+      </div>
+    )
+
+  return (
+    <div className="relative z-20   mx-auto mb-32 flex w-full max-w-md flex-col items-center justify-center gap-3 text-center md:mb-0">
+      <Logo />
+
+      <input
+        type="number"
+        min={1}
+        onInput={(e) => {
+          e.preventDefault()
+          if (e.currentTarget.value === '') {
+            setNumTokens('')
+            return
+          }
+          setNumTokens(
+            parseInt(e.currentTarget.value) >
+              MAX_MINTABLE - (mintedCount?.toNumber() ?? 0)
+              ? MAX_MINTABLE - (mintedCount?.toNumber() ?? 0)
+              : parseInt(e.currentTarget.value)
+          )
+        }}
+        value={numTokens}
+        placeholder="Enter number of tokens"
+        className="  w-full   rounded bg-black  p-3 border-gray-800 border-2  focus:outline-none focus:border-gray-700"
+      />
+      <Button full disabled={!write} color="blue" onClick={() => write?.()}>
+        {isLoading ? <Spinner /> : 'Buy NFT'}
+      </Button>
+    </div>
   )
 }

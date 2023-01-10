@@ -1,8 +1,8 @@
 import { Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import toast, { Toast } from 'react-hot-toast'
-import cn from 'clsx'
 import { Icon } from '@iconify/react'
+import clsx from 'clsx'
 
 interface Props {
   t: Toast
@@ -23,8 +23,8 @@ export default function ToastComponent({ t, type, message }: Props) {
         leaveTo="opacity-0"
       >
         <div
-          className={cn(
-            ' pointer-events-auto w-72 overflow-hidden rounded-xl  bg-opacity-80 bg-gradient-to-r from-blue-800 to-pink-800 shadow-lg ring-1 ring-black ring-opacity-5'
+          className={clsx(
+            ' pointer-events-auto w-80 overflow-hidden rounded-xl  bg-opacity-80 bg-gradient-to-r from-blue-800 to-pink-800 shadow-lg ring-1 ring-black ring-opacity-5'
           )}
         >
           <div className="p-4">

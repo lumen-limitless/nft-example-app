@@ -1,5 +1,7 @@
 export default function Skeleton() {
   return (
-    <span className=" min-w-5 h-full min-h-[1rem] w-full animate-pulse rounded-sm bg-zinc-400  " />
+    <div className="  min-w-[3rem] grow animate-pulse rounded-sm bg-gray-200/30 text-transparent ">
+      .
+    </div>
   )
 }

@@ -1,25 +1,22 @@
-import dynamic from 'next/dynamic'
 import { AnimatePresence } from 'framer-motion'
 import { useLockBodyScroll } from 'react-use'
-import { useNetworkNotifications } from '../hooks/useNetworkNotifications'
 import { useUI } from '../hooks/useUI'
 import Logo from '../components/Logo'
 import Nav from '../components/Nav'
 import { ReactNode } from 'react'
 import Modal from '../components/ui/Modal'
-import Connect from '../components/Connect'
 import Sidebar from '../components/Sidebar'
-
-const Toaster = dynamic(() =>
-  import('react-hot-toast').then((mod) => mod.Toaster)
-)
+import { useAccount } from 'wagmi'
+import { useToast } from '../hooks'
+import { Toaster } from 'react-hot-toast'
 
 const ModalUI = () => {
   const { toggleViewingModal, viewingModal, modalView } = useUI()
   return (
-    <Modal isOpen={viewingModal} onDismiss={() => toggleViewingModal(false)}>
-      {modalView === 'connect' && <Connect />}
-    </Modal>
+    <Modal
+      isOpen={viewingModal}
+      onDismiss={() => toggleViewingModal(false)}
+    ></Modal>
   )
 }
 
@@ -33,15 +30,13 @@ const SidebarUI = () => {
   )
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
-  useNetworkNotifications()
+export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <a href="#main" className="sr-only">
         skip to main content
       </a>
-      <Toaster position="top-right" containerClassName="mt-24" />
-      <ModalUI />
+      <Toaster position="bottom-right" containerClassName="mb-12" />
       <SidebarUI />
       <header className=" z-20 " id="header">
         <Nav />

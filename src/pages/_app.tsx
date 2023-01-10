@@ -1,34 +1,20 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import {
-  Config,
-  DAppProvider,
-  MetamaskConnector,
-  CoinbaseWalletConnector,
-  Hardhat,
-  Goerli,
-} from '@usedapp/core'
-import Layout from '../layouts'
+import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
-import { HOME_CHAINID, RPC } from '../constants'
 import { DefaultSeo } from 'next-seo'
+import { createClient, WagmiConfig } from 'wagmi'
+import { hardhat, goerli, foundry, localhost } from 'wagmi/chains'
+import { ConnectKitProvider, getDefaultClient } from 'connectkit'
 
-const config: Config = {
-  readOnlyChainId: HOME_CHAINID,
-  readOnlyUrls: RPC,
-  autoConnect: false,
-  multicallVersion: 2,
-  notifications: {
-    checkInterval: 3000,
-    expirationPeriod: 1,
-  },
-  connectors: {
-    metamask: new MetamaskConnector(),
-    coinbase: new CoinbaseWalletConnector(),
-  },
-  pollingInterval: 5000,
-  networks: [Hardhat, Goerli],
-}
+const chains = process.env.NODE_ENV === 'production' ? [goerli] : [hardhat]
+const client = createClient(
+  getDefaultClient({
+    autoConnect: false,
+    appName: 'NFT Example DApp',
+    chains,
+  })
+)
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -45,11 +31,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
 
-      <DAppProvider config={config}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </DAppProvider>
+      <WagmiConfig client={client}>
+        <ConnectKitProvider>
+          <AppLayout>
+            <Component {...pageProps} />
+          </AppLayout>
+        </ConnectKitProvider>
+      </WagmiConfig>
     </>
   )
 }

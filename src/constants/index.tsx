@@ -1,4 +1,3 @@
-import { Goerli, Hardhat } from '@usedapp/core'
 import contractsInfo from '../json/contractsInfo.json'
 import contractsInfoLocal from '../json/contractsInfo.local.json'
 
@@ -34,15 +33,3 @@ export const CONTRACTS =
   process.env.NODE_ENV === 'production'
     ? contractsInfo.contracts.NFT
     : contractsInfoLocal.contracts.NFT
-
-export const RPC =
-  process.env.NODE_ENV === 'production'
-    ? {
-        [Goerli.chainId]:
-          'https://eth-goerli.g.alchemy.com/v2/9WA5ju6LZtjbnuhzqCedTtDoDXDIwNH6',
-      }
-    : { [Hardhat.chainId]: 'http://localhost:8545' }
-
-export const MULTICALL2_ADDRESS = {
-  [Goerli.chainId]: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
-}

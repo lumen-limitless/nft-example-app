@@ -22,7 +22,7 @@ export default function Nav() {
               <Link
                 href={'/'}
                 className={clsx(
-                  'border-blue-800 border-b-2',
+                  'border-b-2 border-blue-800',
                   'inline-flex w-10 items-center  justify-center p-1  text-sm font-medium text-gray-100 hover:text-gray-300'
                 )}
               >

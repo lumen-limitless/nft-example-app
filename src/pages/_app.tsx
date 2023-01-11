@@ -32,7 +32,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <WagmiConfig client={client}>
-        <ConnectKitProvider>
+        <ConnectKitProvider
+          options={{
+            hideQuestionMarkCTA: true,
+            disclaimer:
+              'Testing purposes only. Do not send real funds to contracts.',
+          }}
+        >
           <AppLayout>
             <Component {...pageProps} />
           </AppLayout>

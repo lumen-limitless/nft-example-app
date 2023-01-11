@@ -5,11 +5,11 @@ export default function Banner({}) {
   return (
     <>
       {viewing && (
-        <div className="fixed bottom-0 z-20 w-full bg-blue/60 backdrop-blur-md">
+        <div className="bg-blue/60 fixed bottom-0 z-20 w-full backdrop-blur-md">
           <div className="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-between">
               <div className="flex w-0 flex-1 items-center">
-                <span className="flex rounded-lg bg-dark/30 p-2 text-white">
+                <span className="bg-dark/30 flex rounded-lg p-2 text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true"

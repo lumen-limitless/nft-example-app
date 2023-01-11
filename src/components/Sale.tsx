@@ -53,7 +53,7 @@ export default function Sale() {
 
   if (!isConnected)
     return (
-      <div className="flex flex-col items-center mx-auto text-center">
+      <div className="mx-auto flex flex-col items-center text-center">
         <Logo />
         <p>Connect a wallet to continue.</p>
       </div>
@@ -61,7 +61,7 @@ export default function Sale() {
 
   if (mintedCount?.gte(MAX_MINTABLE))
     return (
-      <div className="flex flex-col items-center mx-auto text-center">
+      <div className="mx-auto flex flex-col items-center text-center">
         <Logo />
         <p>You have minted the maximum amount of tokens available.</p>
       </div>
@@ -89,12 +89,12 @@ export default function Sale() {
         }}
         value={numTokens}
         placeholder="Enter number of tokens"
-        className="  w-full   rounded bg-black  p-3 border-gray-800 border-2  focus:outline-none focus:border-gray-700"
+        className="  w-full   rounded border-2  border-gray-800 bg-black p-3  focus:border-gray-700 focus:outline-none"
       />
       <Button full disabled={!write} color="blue" onClick={() => write?.()}>
         {isLoading ? (
           <Spinner />
-        ) : !balance?.value.gte(numTokens || 0 * 0.0001) ? (
+        ) : !balance?.value.gte(numTokens || 0 * parseFloat(PUBLIC_PRICE)) ? (
           'Insufficient balance'
         ) : (
           'Buy NFT'

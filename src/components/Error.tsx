@@ -13,7 +13,7 @@ export default function Error({ message }: { message: string }) {
           height={256}
           preserveAspectRatio="xMidYMid meet"
           viewBox="0 0 48 48"
-          className="animate-pulse fill-current stroke-current text-yellow"
+          className="text-yellow animate-pulse fill-current stroke-current"
         >
           <mask id="svgIDa">
             <g fill="none" strokeWidth="4">

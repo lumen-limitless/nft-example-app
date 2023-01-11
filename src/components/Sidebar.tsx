@@ -25,7 +25,7 @@ export default function Sidebar() {
         animate={{ opacity: 1, translateX: '0%' }}
         exit={{ opacity: 0, translateX: '100%' }}
         transition={{ ease: 'easeOut', duration: 0.33 }}
-        className="bg-black/20 fixed top-0  right-0 z-40 h-screen w-[75vw] backdrop-blur-md"
+        className="fixed top-0 right-0  z-40 h-screen w-[75vw] bg-black/20 backdrop-blur-md"
       >
         <div className="relative flex h-full w-full flex-col gap-3  pt-36 ">
           <Button

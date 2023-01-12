@@ -1,6 +1,6 @@
-import { BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import { parseEther, parseUnits } from 'ethers/lib/utils'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { CONTRACTS } from '../constants'
 import Logo from './Logo'
 import {
@@ -11,44 +11,49 @@ import {
   usePrepareContractWrite,
 } from 'wagmi'
 import { NFT__factory } from '../typechain'
+import { useToast } from '../hooks'
+import WagmiTransactionButton from './WagmiTransactionButton'
 import Button from './ui/Button'
 import Spinner from './ui/Spinner'
-import { useToast } from '../hooks'
 
 const MAX_MINTABLE = 5
 const PUBLIC_PRICE = '0.0001'
 
 export default function Sale() {
-  const t = useToast()
-  const [numTokens, setNumTokens] = useState<number | ''>('')
+  const [numTokens, setNumTokens] = useState<string>('')
   const { address, isConnected } = useAccount()
   const { data: balance } = useBalance({
     address: address,
     formatUnits: 'ether',
   })
 
+  const sufficientBalance = useMemo(() => {
+    if (!balance) return false
+    if (!numTokens) return false
+    return (
+      parseFloat(balance.formatted) >
+      parseInt(numTokens) * parseFloat(PUBLIC_PRICE)
+    )
+  }, [balance, numTokens])
+
   const { data: mintedCount }: { data: BigNumber | undefined } =
     useContractRead({
+      watch: true,
       address: CONTRACTS.address as `0x${string}`,
       abi: NFT__factory.abi,
       functionName: 'mintedCount',
-      args: [address],
-      enabled: isConnected,
+      args: [address || ethers.constants.AddressZero],
     })
+
   const { config } = usePrepareContractWrite({
     address: CONTRACTS.address as `0x${string}`,
     abi: NFT__factory.abi,
     functionName: 'buyPublic',
     args: [numTokens || 0],
-    overrides: { value: parseUnits(PUBLIC_PRICE).mul(numTokens || 0) },
-    enabled:
-      mintedCount?.lt(MAX_MINTABLE) &&
-      balance?.value.gte(numTokens || 0 * 0.0001),
-  })
-  const { write, isLoading } = useContractWrite({
-    ...config,
-    onSuccess: () =>
-      t('success', `${config.functionName} transaction submitted.`),
+    overrides: {
+      value: parseUnits(PUBLIC_PRICE).mul(parseInt(numTokens || '0')),
+    },
+    enabled: mintedCount?.lt(MAX_MINTABLE) && sufficientBalance,
   })
 
   if (!isConnected)
@@ -72,34 +77,41 @@ export default function Sale() {
       <Logo />
 
       <input
-        type="number"
-        min={1}
-        onInput={(e) => {
+        type="text"
+        onChange={(e) => {
           e.preventDefault()
-          if (e.currentTarget.value === '') {
+          const input = e.target.value.replace(/\D/g, '')
+          if (Number.isNaN(input)) {
             setNumTokens('')
             return
           }
           setNumTokens(
-            parseInt(e.currentTarget.value) >
-              MAX_MINTABLE - (mintedCount?.toNumber() ?? 0)
-              ? MAX_MINTABLE - (mintedCount?.toNumber() ?? 0)
-              : parseInt(e.currentTarget.value)
+            parseInt(input) > MAX_MINTABLE - (mintedCount?.toNumber() || 0)
+              ? (MAX_MINTABLE - (mintedCount?.toNumber() || 0)).toString()
+              : input
           )
         }}
         value={numTokens}
         placeholder="Enter number of tokens"
         className="  w-full   rounded border-2  border-gray-800 bg-black p-3  focus:border-gray-700 focus:outline-none"
       />
-      <Button full disabled={!write} color="blue" onClick={() => write?.()}>
-        {isLoading ? (
+      {numTokens === '' ? (
+        <Button full color="gray" disabled>
           <Spinner />
-        ) : !balance?.value.gte(numTokens || 0 * parseFloat(PUBLIC_PRICE)) ? (
-          'Insufficient balance'
-        ) : (
-          'Buy NFT'
-        )}
-      </Button>
+        </Button>
+      ) : sufficientBalance ? (
+        <WagmiTransactionButton
+          full
+          config={config}
+          name={`Buy ${numTokens} NFT${parseInt(numTokens) > 1 ? "'s" : ''}`}
+          color="blue"
+          onMethodComplete={() => setNumTokens('')}
+        />
+      ) : (
+        <Button full color="gray" disabled>
+          Insufficient Balance
+        </Button>
+      )}
     </div>
   )
 }

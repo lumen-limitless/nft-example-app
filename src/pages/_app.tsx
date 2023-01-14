@@ -4,15 +4,14 @@ import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { createClient, WagmiConfig } from 'wagmi'
-import { hardhat, goerli } from 'wagmi/chains'
+import { goerli } from 'wagmi/chains'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
 
-const chains = process.env.NODE_ENV === 'production' ? [goerli] : [hardhat]
 const client = createClient(
   getDefaultClient({
     autoConnect: false,
+    chains: [goerli],
     appName: process.env.NEXT_PUBLIC_APP_NAME || '',
-    chains,
   })
 )
 

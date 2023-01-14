@@ -47,7 +47,7 @@ specifiers:
   three: ^0.148.0
   three-stdlib: ^2.21.1
   typescript: ^4.9.3
-  wagmi: ^0.10.9
+  wagmi: ^0.10.10
   zustand: ^4.1.5
 
 dependencies:
@@ -57,7 +57,7 @@ dependencies:
   '@react-three/fiber': 8.9.1_4tzez3c2xpzuefjrvhpyy55bva
   '@sentry/nextjs': 7.28.1_next@13.1.1+react@18.2.0
   '@tanstack/query-core': 4.22.0
-  connectkit: 1.1.1_4sva7qha73hkk6bd4g54hh4pqi
+  connectkit: 1.1.1_w6c5kpcuces55ljeenuk7vcga4
   ethereum-blockies-base64: 1.0.2
   ethers: 5.7.2
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
@@ -66,7 +66,7 @@ dependencies:
   react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
   react-is: 18.2.0
   three: 0.148.0
-  wagmi: 0.10.9_7llaqf76p5n57npylkoeobk43y
+  wagmi: 0.10.10_7llaqf76p5n57npylkoeobk43y
   zustand: 4.1.5_react@18.2.0
 
 devDependencies:
@@ -2974,7 +2974,7 @@ packages:
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  /connectkit/1.1.1_4sva7qha73hkk6bd4g54hh4pqi:
+  /connectkit/1.1.1_w6c5kpcuces55ljeenuk7vcga4:
     resolution: {integrity: sha512-aQ6DHuKBMQeed0TJqlb8UJHW4K9jim/CCKBBhSwz6xLhR73tMRxP9nIyKVr/RaC+GYt/TyXBUiKBo0G96cJO6Q==}
     engines: {node: '>=12.4'}
     peerDependencies:
@@ -2994,7 +2994,7 @@ packages:
       react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
       resize-observer-polyfill: 1.5.1
       styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
-      wagmi: 0.10.9_7llaqf76p5n57npylkoeobk43y
+      wagmi: 0.10.10_7llaqf76p5n57npylkoeobk43y
     transitivePeerDependencies:
       - react-is
     dev: false
@@ -6580,8 +6580,8 @@ packages:
     hasBin: true
     dev: false
 
-  /wagmi/0.10.9_7llaqf76p5n57npylkoeobk43y:
-    resolution: {integrity: sha512-nvcU4O3djkuFVLkkT2VvOyL0y6ufvsj3JWxiNlaCPn4BOnuTQqKJ62G3qK+Qe5vaWqTRWhHUph2/iqAl0ykN9A==}
+  /wagmi/0.10.10_7llaqf76p5n57npylkoeobk43y:
+    resolution: {integrity: sha512-YChCEVXA+AMYdP0p4ds05CBGpM/jEiecCknoGsubq80qjv8M/qg658xbtLOSSpmt190mmkAzut0s2jZ2Hp615w==}
     peerDependencies:
       ethers: '>=5.5.1'
       react: '>=17.0.0'

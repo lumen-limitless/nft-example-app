@@ -29,7 +29,7 @@
     "react-hot-toast": "^2.4.0",
     "react-is": "^18.2.0",
     "three": "^0.148.0",
-    "wagmi": "^0.10.9",
+    "wagmi": "^0.10.10",
     "zustand": "^4.1.5"
   },
   "devDependencies": {

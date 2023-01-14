@@ -4,9 +4,31 @@ import Logo from './Logo'
 import { Icon } from '@iconify/react'
 import Button from './ui/Button'
 import { clsx } from 'clsx'
-import { social } from '../constants'
 import { useUI } from '../hooks/useUI'
 import { ConnectKitButton } from 'connectkit'
+
+const social = [
+  {
+    name: 'twitter',
+    link: '',
+    icon: 'akar-icons:twitter-fill',
+  },
+  {
+    name: 'discord',
+    link: '',
+    icon: 'akar-icons:discord-fill',
+  },
+  {
+    name: 'instagram',
+    link: '',
+    icon: 'akar-icons:instagram-fill',
+  },
+  {
+    name: 'opensea',
+    link: 'https://opensea.io/',
+    icon: 'simple-icons:opensea',
+  },
+]
 
 export default function Nav() {
   const { toggleViewingSidebar } = useUI()

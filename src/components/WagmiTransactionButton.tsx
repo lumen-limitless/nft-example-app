@@ -4,7 +4,7 @@ import Button from './ui/Button'
 interface WagmiTransactionButtonProps
   extends Omit<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
-    'className' | 'children'
+    'className' | 'children' | 'onError'
   > {
   children?: React.ReactNode
   className?: string
@@ -12,21 +12,35 @@ interface WagmiTransactionButtonProps
   size?: 'xs' | 'sm' | 'lg' | 'md' | 'none'
   full?: boolean
   config: any
+  onSuccess?: (data: any, variables: any) => void
+  onError?: () => void
+  onSettled?: () => void
+  onMutate?: () => void
   onMethodComplete?: () => void
   name?: string
 }
 
 export default function WagmiTransactionButton({
   config,
+  onSuccess,
+  onError,
+  onSettled,
+  onMutate,
   onMethodComplete,
   name,
   ...props
 }: WagmiTransactionButtonProps) {
-  const contractWrite = useContractWrite(config)
+  const contractWrite = useContractWrite({
+    ...config,
+    onSuccess,
+    onError,
+    onSettled,
+    onMutate,
+  })
 
   return (
     <Button
-      disabled={!config || contractWrite?.isLoading}
+      disabled={!contractWrite?.write}
       {...props}
       onClick={() =>
         contractWrite

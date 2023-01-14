@@ -1,30 +1,29 @@
 import { BigNumber, ethers } from 'ethers'
 import { parseEther, parseUnits } from 'ethers/lib/utils'
 import React, { useMemo, useState } from 'react'
-import { CONTRACTS } from '../constants'
+import { NFT } from '../constants'
 import Logo from './Logo'
 import {
   useAccount,
   useBalance,
   useContractRead,
-  useContractWrite,
   usePrepareContractWrite,
 } from 'wagmi'
-import { NFT__factory } from '../typechain'
-import { useToast } from '../hooks'
 import WagmiTransactionButton from './WagmiTransactionButton'
 import Button from './ui/Button'
-import Spinner from './ui/Spinner'
+import { useToast } from '../hooks'
 
 const MAX_MINTABLE = 5
 const PUBLIC_PRICE = '0.0001'
 
 export default function Sale() {
+  const t = useToast()
   const [numTokens, setNumTokens] = useState<string>('')
   const { address, isConnected } = useAccount()
   const { data: balance } = useBalance({
     address: address,
     formatUnits: 'ether',
+    watch: true,
   })
 
   const sufficientBalance = useMemo(() => {
@@ -36,20 +35,17 @@ export default function Sale() {
     )
   }, [balance, numTokens])
 
-  const { data: mintedCount }: { data: BigNumber | undefined } =
-    useContractRead({
-      watch: true,
-      address: CONTRACTS.address as `0x${string}`,
-      abi: NFT__factory.abi,
-      functionName: 'mintedCount',
-      args: [address || ethers.constants.AddressZero],
-    })
+  const { data: mintedCount } = useContractRead({
+    ...NFT,
+    watch: true,
+    functionName: 'mintedCount',
+    args: [address || ethers.constants.AddressZero],
+  })
 
   const { config } = usePrepareContractWrite({
-    address: CONTRACTS.address as `0x${string}`,
-    abi: NFT__factory.abi,
+    ...NFT,
     functionName: 'buyPublic',
-    args: [numTokens || 0],
+    args: [BigNumber.from(numTokens || 0)],
     overrides: {
       value: parseUnits(PUBLIC_PRICE).mul(parseInt(numTokens || '0')),
     },
@@ -75,7 +71,9 @@ export default function Sale() {
   return (
     <div className="relative z-20   mx-auto mb-32 flex w-full max-w-md flex-col items-center justify-center gap-3 text-center md:mb-0">
       <Logo />
-
+      {mintedCount && (
+        <span>{5 - mintedCount.toNumber()} tokens available for minting.</span>
+      )}
       <input
         type="text"
         onChange={(e) => {
@@ -86,7 +84,7 @@ export default function Sale() {
             return
           }
           setNumTokens(
-            parseInt(input) > MAX_MINTABLE - (mintedCount?.toNumber() || 0)
+            parseInt(input) >= MAX_MINTABLE - (mintedCount?.toNumber() || 0)
               ? (MAX_MINTABLE - (mintedCount?.toNumber() || 0)).toString()
               : input
           )
@@ -96,16 +94,20 @@ export default function Sale() {
         className="  w-full   rounded border-2  border-gray-800 bg-black p-3  focus:border-gray-700 focus:outline-none"
       />
       {numTokens === '' ? (
-        <Button full color="gray" disabled>
-          <Spinner />
-        </Button>
+        <div className="p-6" />
       ) : sufficientBalance ? (
         <WagmiTransactionButton
           full
           config={config}
-          name={`Buy ${numTokens} NFT${parseInt(numTokens) > 1 ? "'s" : ''}`}
+          name={`Mint ${numTokens} NFT${parseInt(numTokens) > 1 ? "'s" : ''}`}
           color="blue"
           onMethodComplete={() => setNumTokens('')}
+          onSuccess={(data) => {
+            t('info', 'Transaction sent')
+            console.debug(data)
+            data.wait().then(() => t('success', 'Transaction confirmed'))
+          }}
+          onError={() => t('error', 'Transaction failed')}
         />
       ) : (
         <Button full color="gray" disabled>

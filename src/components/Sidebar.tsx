@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { useClickAway } from 'react-use'
-import { social } from '../constants'
 import { clsx } from 'clsx'
 import Button from './ui/Button'
 import ExternalLink from './ui/ExternalLink'
@@ -60,14 +59,6 @@ export default function Sidebar() {
           >
             Home
           </Link>
-
-          <div className=" absolute bottom-12 flex w-full justify-evenly gap-6 px-3">
-            {social.map((s, i) => (
-              <Button key={i} size="sm">
-                <ExternalLink href={s.link} alt={s.name}></ExternalLink>
-              </Button>
-            ))}
-          </div>
         </div>
       </motion.nav>
     </>

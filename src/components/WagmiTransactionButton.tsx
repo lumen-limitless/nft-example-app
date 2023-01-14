@@ -1,12 +1,6 @@
 import { useContractWrite } from 'wagmi'
-import Button from './ui/Button'
 
-interface WagmiTransactionButtonProps
-  extends Omit<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    'className' | 'children' | 'onError'
-  > {
-  children?: React.ReactNode
+interface WagmiTransactionButtonProps {
   className?: string
   color?: 'none' | 'blue' | 'green' | 'red' | 'yellow' | 'pink' | 'gray'
   size?: 'xs' | 'sm' | 'lg' | 'md' | 'none'
@@ -21,6 +15,7 @@ interface WagmiTransactionButtonProps
 }
 
 export default function WagmiTransactionButton({
+  className,
   config,
   onSuccess,
   onError,
@@ -39,9 +34,15 @@ export default function WagmiTransactionButton({
   })
 
   return (
-    <Button
-      disabled={!contractWrite?.write}
+    <button
+      className={[
+        'inline-flex items-center justify-center gap-1 transition disabled:bg-opacity-60',
+        className,
+      ]
+        .filter(Boolean)
+        .join(' ')}
       {...props}
+      disabled={!contractWrite?.write}
       onClick={() =>
         contractWrite
           .writeAsync?.()
@@ -72,6 +73,6 @@ export default function WagmiTransactionButton({
       ) : (
         name
       )}
-    </Button>
+    </button>
   )
 }

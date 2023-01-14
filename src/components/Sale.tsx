@@ -97,7 +97,7 @@ export default function Sale() {
         <div className="p-6" />
       ) : sufficientBalance ? (
         <WagmiTransactionButton
-          full
+          className="w-full rounded bg-blue-500 p-3 drop-shadow"
           config={config}
           name={`Mint ${numTokens} NFT${parseInt(numTokens) > 1 ? "'s" : ''}`}
           color="blue"
@@ -110,9 +110,7 @@ export default function Sale() {
           onError={() => t('error', 'Transaction failed')}
         />
       ) : (
-        <Button full color="gray" disabled>
-          Insufficient Balance
-        </Button>
+        <div className="p-3">Insufficient Balance</div>
       )}
     </div>
   )

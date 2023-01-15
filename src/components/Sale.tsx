@@ -1,5 +1,5 @@
-import { BigNumber, ethers } from 'ethers'
-import { parseEther, parseUnits } from 'ethers/lib/utils'
+import { BigNumber } from 'ethers'
+import { parseUnits } from 'ethers/lib/utils'
 import React, { useMemo, useState } from 'react'
 import { NFT } from '../constants'
 import Logo from './Logo'
@@ -7,18 +7,29 @@ import {
   useAccount,
   useBalance,
   useContractRead,
+  useContractReads,
   usePrepareContractWrite,
 } from 'wagmi'
 import WagmiTransactionButton from './WagmiTransactionButton'
-import Button from './ui/Button'
 import { useToast } from '../hooks'
+import { useDebounce } from 'react-use'
+import Spinner from './ui/Spinner'
 
 const MAX_MINTABLE = 5
-const PUBLIC_PRICE = '0.0001'
+const PUBLIC_PRICE = parseUnits('0.0001')
 
 export default function Sale() {
   const t = useToast()
-  const [numTokens, setNumTokens] = useState<string>('')
+  const [numTokensInput, setNumTokensInput] = useState<string>('')
+  const [numTokens, setNumTokens] = useState<number>(0)
+  const [] = useDebounce(
+    () => {
+      if (numTokensInput === '') return
+      setNumTokens(parseInt(numTokensInput))
+    },
+    500,
+    [numTokensInput, numTokens]
+  )
   const { address, isConnected } = useAccount()
   const { data: balance } = useBalance({
     address: address,
@@ -28,26 +39,23 @@ export default function Sale() {
 
   const sufficientBalance = useMemo(() => {
     if (!balance) return false
-    if (!numTokens) return false
-    return (
-      parseFloat(balance.formatted) >
-      parseInt(numTokens) * parseFloat(PUBLIC_PRICE)
-    )
+
+    return balance.value.gte(PUBLIC_PRICE.mul(numTokens))
   }, [balance, numTokens])
 
   const { data: mintedCount } = useContractRead({
     ...NFT,
     watch: true,
     functionName: 'mintedCount',
-    args: [address || ethers.constants.AddressZero],
+    args: [address || '0x'],
   })
 
   const { config } = usePrepareContractWrite({
     ...NFT,
     functionName: 'buyPublic',
-    args: [BigNumber.from(numTokens || 0)],
+    args: [BigNumber.from(numTokens)],
     overrides: {
-      value: parseUnits(PUBLIC_PRICE).mul(parseInt(numTokens || '0')),
+      value: PUBLIC_PRICE.mul(numTokens),
     },
     enabled: mintedCount?.lt(MAX_MINTABLE) && sufficientBalance,
   })
@@ -72,7 +80,9 @@ export default function Sale() {
     <div className="relative z-20   mx-auto mb-32 flex w-full max-w-md flex-col items-center justify-center gap-3 text-center md:mb-0">
       <Logo />
       {mintedCount && (
-        <span>{5 - mintedCount.toNumber()} tokens available for minting.</span>
+        <span>
+          {MAX_MINTABLE - mintedCount.toNumber()} tokens available for minting.
+        </span>
       )}
       <input
         type="text"
@@ -80,28 +90,34 @@ export default function Sale() {
           e.preventDefault()
           const input = e.target.value.replace(/\D/g, '')
           if (Number.isNaN(input)) {
-            setNumTokens('')
+            setNumTokensInput('')
             return
           }
-          setNumTokens(
+          setNumTokensInput(
             parseInt(input) >= MAX_MINTABLE - (mintedCount?.toNumber() || 0)
               ? (MAX_MINTABLE - (mintedCount?.toNumber() || 0)).toString()
               : input
           )
         }}
-        value={numTokens}
+        value={numTokensInput}
         placeholder="Enter number of tokens"
         className="  w-full   rounded border-2  border-gray-800 bg-black p-3  focus:border-gray-700 focus:outline-none"
       />
-      {numTokens === '' ? (
+      {numTokensInput === '' ? (
         <div className="p-6" />
+      ) : numTokensInput !== numTokens.toString() ? (
+        <div className="p-3">
+          <Spinner />
+        </div>
+      ) : mintedCount?.gt(numTokens) ? (
+        <div className="p-3"></div>
       ) : sufficientBalance ? (
         <WagmiTransactionButton
           className="w-full rounded bg-blue-500 p-3 drop-shadow"
           config={config}
-          name={`Mint ${numTokens} NFT${parseInt(numTokens) > 1 ? "'s" : ''}`}
+          name={`Mint ${numTokens} NFT${numTokens > 1 ? "'s" : ''}`}
           color="blue"
-          onMethodComplete={() => setNumTokens('')}
+          onMethodComplete={() => setNumTokensInput('')}
           onSuccess={(data) => {
             t('info', 'Transaction sent')
             console.debug(data)

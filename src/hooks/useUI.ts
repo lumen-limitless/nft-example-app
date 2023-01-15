@@ -1,4 +1,4 @@
-import useStore from '../store/useStore'
+import useStore from '../store'
 
 export const useUI = () => {
   const setModalView = useStore((state) => state.setModalView)

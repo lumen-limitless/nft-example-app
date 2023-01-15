@@ -36,7 +36,7 @@ export default function WagmiTransactionButton({
   return (
     <button
       className={[
-        'inline-flex items-center justify-center gap-1 transition disabled:bg-opacity-60',
+        'inline-flex items-center justify-center gap-1 transition disabled:bg-opacity-20 disabled:text-opacity-40',
         className,
       ]
         .filter(Boolean)
@@ -44,10 +44,7 @@ export default function WagmiTransactionButton({
       {...props}
       disabled={!contractWrite?.write}
       onClick={() =>
-        contractWrite
-          .writeAsync?.()
-          .then(() => onMethodComplete?.())
-          .catch((err) => console.error(err))
+        contractWrite.writeAsync?.().catch((err) => console.error(err))
       }
     >
       {contractWrite?.isLoading ? (

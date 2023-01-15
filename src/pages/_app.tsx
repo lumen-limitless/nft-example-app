@@ -3,45 +3,55 @@ import type { AppProps } from 'next/app'
 import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
-import { createClient, WagmiConfig } from 'wagmi'
-import { goerli } from 'wagmi/chains'
+import { createClient, goerli, WagmiConfig } from 'wagmi'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
+import { useEffect, useState } from 'react'
 
-const client = createClient(
+const wagmiClient = createClient(
   getDefaultClient({
-    autoConnect: false,
-    chains: [goerli],
     appName: process.env.NEXT_PUBLIC_APP_NAME || '',
+    alchemyId: '9WA5ju6LZtjbnuhzqCedTtDoDXDIwNH6',
+    chains: [goerli],
   })
 )
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    setReady(true)
+  }, [])
+
   return (
     <>
-      <DefaultSeo
-        defaultTitle={process.env.NEXT_PUBLIC_APP_NAME || ''}
-        titleTemplate={`%s | ${process.env.NEXT_PUBLIC_APP_NAME || ''}`}
-        description={process.env.NEXT_PUBLIC_APP_DESCRIPTION || ''}
-      />
-      <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-        />
-      </Head>
+      {ready ? (
+        <>
+          <DefaultSeo
+            defaultTitle={process.env.NEXT_PUBLIC_APP_NAME || ''}
+            titleTemplate={`%s | ${process.env.NEXT_PUBLIC_APP_NAME || ''}`}
+            description={process.env.NEXT_PUBLIC_APP_DESCRIPTION || ''}
+          />
+          <Head>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+            />
+          </Head>
 
-      <WagmiConfig client={client}>
-        <ConnectKitProvider
-          options={{
-            disclaimer:
-              'Testing purposes only. Do not send real funds to contracts.',
-          }}
-        >
-          <AppLayout>
-            <Component {...pageProps} />
-          </AppLayout>
-        </ConnectKitProvider>
-      </WagmiConfig>
+          <WagmiConfig client={wagmiClient}>
+            <ConnectKitProvider
+              options={{
+                disclaimer:
+                  'Testing purposes only. Do not send real funds to contracts.',
+              }}
+            >
+              <AppLayout>
+                <Component {...pageProps} />
+              </AppLayout>
+            </ConnectKitProvider>
+          </WagmiConfig>
+        </>
+      ) : null}
     </>
   )
 }

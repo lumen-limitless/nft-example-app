@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { StateCreator } from 'zustand'
 
@@ -45,7 +45,6 @@ const createUISlice: StateCreator<
     }),
 })
 
-//TODO: fix type too complex error
 interface RootSlice extends UISlice {}
 
 const useStore = create<RootSlice>()(

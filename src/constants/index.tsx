@@ -1,5 +1,5 @@
 export const NFT_ADDRESS: { [chainId: number]: `0x${string}` } = {
-  5: '0x98FfC84C3F9D9eFEbCe82CBC9752A05887A48b69',
+  5: '0x1EbC9aAe56D1574d1BFA1BC086f3c3AA3dff9B12',
   31337: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
 }
 

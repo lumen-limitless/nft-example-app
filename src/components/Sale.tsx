@@ -7,7 +7,6 @@ import {
   useAccount,
   useBalance,
   useContractRead,
-  useContractReads,
   useNetwork,
   usePrepareContractWrite,
 } from 'wagmi'
@@ -16,14 +15,14 @@ import { useToast } from '../hooks'
 import { useDebounce } from 'react-use'
 import Spinner from './ui/Spinner'
 
-const MAX_MINTABLE = 5
+const MAX_MINTABLE = 100
 const PUBLIC_PRICE = parseUnits('0.0001')
 
 export default function Sale() {
   const t = useToast()
   const [numTokensInput, setNumTokensInput] = useState<string>('')
   const [numTokens, setNumTokens] = useState<number>(0)
-  const [] = useDebounce(
+  useDebounce(
     () => {
       if (numTokensInput === '') return
       setNumTokens(parseInt(numTokensInput))
@@ -120,11 +119,13 @@ export default function Sale() {
           config={config}
           name={`Mint ${numTokens} NFT${numTokens > 1 ? "'s" : ''}`}
           color="blue"
-          onMethodComplete={() => setNumTokensInput('')}
           onSuccess={(data) => {
             t('info', 'Transaction sent')
             console.debug(data)
-            data.wait().then(() => t('success', 'Transaction confirmed'))
+            data.wait().then(() => {
+              t('success', 'Transaction confirmed')
+              setNumTokensInput('')
+            })
           }}
           onError={() => t('error', 'Transaction failed')}
         />

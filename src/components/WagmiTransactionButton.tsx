@@ -1,16 +1,13 @@
-import { useContractWrite } from 'wagmi'
+import { TransactionResponse } from '@ethersproject/providers'
+import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 interface WagmiTransactionButtonProps {
   className?: string
-  color?: 'none' | 'blue' | 'green' | 'red' | 'yellow' | 'pink' | 'gray'
-  size?: 'xs' | 'sm' | 'lg' | 'md' | 'none'
-  full?: boolean
   config: any
-  onSuccess?: (data: any, variables: any) => void
-  onError?: () => void
-  onSettled?: () => void
-  onMutate?: () => void
-  onMethodComplete?: () => void
+  onSuccess?: (data: TransactionResponse) => void
+  onError?: (data: TransactionResponse) => void
+  onSettled?: (data: TransactionResponse) => void
+  onMutate?: (data: TransactionResponse) => void
   name?: string
 }
 
@@ -21,7 +18,6 @@ export default function WagmiTransactionButton({
   onError,
   onSettled,
   onMutate,
-  onMethodComplete,
   name,
   ...props
 }: WagmiTransactionButtonProps) {
@@ -33,6 +29,9 @@ export default function WagmiTransactionButton({
     onMutate,
   })
 
+  const transaction = useWaitForTransaction({
+    hash: contractWrite.data?.hash,
+  })
   return (
     <button
       className={[

@@ -73,7 +73,7 @@ export default function WagmiTransactionButton({
         </>
       ) : transaction?.isLoading ? (
         <>
-          <span>Confirming... </span>
+          <span>Confirming </span>
           <Spinner />
         </>
       ) : (

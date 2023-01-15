@@ -1,13 +1,14 @@
 import { BigNumber } from 'ethers'
 import { parseUnits } from 'ethers/lib/utils'
 import React, { useMemo, useState } from 'react'
-import { NFT } from '../constants'
+import { NFT_ADDRESS, NFT_ABI } from '../constants'
 import Logo from './Logo'
 import {
   useAccount,
   useBalance,
   useContractRead,
   useContractReads,
+  useNetwork,
   usePrepareContractWrite,
 } from 'wagmi'
 import WagmiTransactionButton from './WagmiTransactionButton'
@@ -31,6 +32,7 @@ export default function Sale() {
     [numTokensInput, numTokens]
   )
   const { address, isConnected } = useAccount()
+  const { chain } = useNetwork()
   const { data: balance } = useBalance({
     address: address,
     formatUnits: 'ether',
@@ -44,14 +46,17 @@ export default function Sale() {
   }, [balance, numTokens])
 
   const { data: mintedCount } = useContractRead({
-    ...NFT,
+    address: NFT_ADDRESS[chain?.id ?? 0],
+    abi: NFT_ABI,
     watch: true,
     functionName: 'mintedCount',
     args: [address || '0x'],
+    enabled: Boolean(address),
   })
 
   const { config } = usePrepareContractWrite({
-    ...NFT,
+    address: NFT_ADDRESS[chain?.id ?? 0],
+    abi: NFT_ABI,
     functionName: 'buyPublic',
     args: [BigNumber.from(numTokens)],
     overrides: {
@@ -109,8 +114,6 @@ export default function Sale() {
         <div className="p-3">
           <Spinner />
         </div>
-      ) : mintedCount?.gt(numTokens) ? (
-        <div className="p-3"></div>
       ) : sufficientBalance ? (
         <WagmiTransactionButton
           className="w-full rounded bg-blue-500 p-3 drop-shadow"

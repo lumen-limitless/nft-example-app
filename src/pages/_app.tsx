@@ -4,6 +4,7 @@ import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import { createClient, goerli, WagmiConfig } from 'wagmi'
+import { hardhat } from 'wagmi/chains'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
 import { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ const wagmiClient = createClient(
   getDefaultClient({
     appName: process.env.NEXT_PUBLIC_APP_NAME || '',
     alchemyId: '9WA5ju6LZtjbnuhzqCedTtDoDXDIwNH6',
-    chains: [goerli],
+    chains: [goerli, hardhat],
   })
 )
 

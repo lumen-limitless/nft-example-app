@@ -3,7 +3,6 @@ import Section from './ui/Section'
 export default function Error({ message }: { message: string }) {
   return (
     <Section fullscreen>
-      {' '}
       <div className="flex flex-col items-center text-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

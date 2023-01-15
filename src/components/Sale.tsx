@@ -118,7 +118,6 @@ export default function Sale() {
           className="w-full rounded bg-blue-500 p-3 drop-shadow"
           config={config}
           name={`Mint ${numTokens} NFT${numTokens > 1 ? "'s" : ''}`}
-          color="blue"
           onSuccess={(data) => {
             t('info', 'Transaction sent')
             console.debug(data)

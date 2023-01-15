@@ -13,7 +13,7 @@ type GLTFResult = GLTF & {
     Cube: THREE.Mesh
   }
   materials: {
-    Material: THREE.MeshStandardMaterial
+    BaseMaterial: THREE.MeshStandardMaterial
   }
 }
 
@@ -23,21 +23,18 @@ export default function Model(props: JSX.IntrinsicElements['group']) {
 
   useFrame(
     ({ clock }) =>
-      group.current && (group.current.rotation.y = clock.getElapsedTime())
+      group.current && (group.current.rotation.y = clock.getElapsedTime() / 3)
   )
   return (
     <group ref={group} {...props} dispose={null}>
-      <group name="Scene">
-        <mesh
-          name="Cube"
-          castShadow
-          receiveShadow
-          geometry={nodes.Cube.geometry}
-          material={materials.Material}
-          rotation={[0, 0, 0]}
-          scale={[1.5, 1.5, 1.5]}
-        />
-      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cube.geometry}
+        material={materials.BaseMaterial}
+        rotation={[0, 0, 0]}
+        scale={[1.5, 1.5, 1.5]}
+      />
     </group>
   )
 }

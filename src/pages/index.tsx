@@ -24,7 +24,7 @@ const MintPage: NextPage = () => {
               <div className=" absolute -bottom-5 -left-10  h-[500px] w-[500px] bg-gradient-radial  from-purple-500/20 to-transparent blur-3xl" />
               <Canvas>
                 <ambientLight intensity={0.5} />
-
+                <spotLight intensity={1} position={[0, 10, 10]} />
                 <Suspense>
                   <Model />
                 </Suspense>

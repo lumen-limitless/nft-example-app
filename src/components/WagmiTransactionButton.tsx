@@ -1,4 +1,7 @@
-import { TransactionResponse } from '@ethersproject/providers'
+import {
+  TransactionReceipt,
+  TransactionResponse,
+} from '@ethersproject/providers'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Spinner = () => {
@@ -24,33 +27,46 @@ const Spinner = () => {
 interface WagmiTransactionButtonProps {
   className?: string
   config: any
-  onSuccess?: (data: TransactionResponse) => void
-  onError?: (data: TransactionResponse) => void
-  onSettled?: (data: TransactionResponse) => void
-  onMutate?: (data: TransactionResponse) => void
+  onWriteSuccess?: (data: TransactionResponse) => void
+  onWriteError?: (data: TransactionResponse) => void
+  onWriteSettled?: (data: TransactionResponse) => void
+  onWriteMutate?: (data: TransactionResponse) => void
+  onTransactionSuccess?: (data: TransactionReceipt) => void
+  onTransactionError?: (data: Error) => void
+  onTransactionSettled?: (
+    data: TransactionReceipt | undefined,
+    error: Error | null
+  ) => void
+
   name?: string
 }
 
 export default function WagmiTransactionButton({
   className,
   config,
-  onSuccess,
-  onError,
-  onSettled,
-  onMutate,
+  onWriteSuccess,
+  onWriteError,
+  onWriteSettled,
+  onWriteMutate,
+  onTransactionSuccess,
+  onTransactionError,
+  onTransactionSettled,
   name,
   ...props
 }: WagmiTransactionButtonProps) {
   const contractWrite = useContractWrite({
     ...config,
-    onSuccess,
-    onError,
-    onSettled,
-    onMutate,
+    onSuccess: onWriteSuccess,
+    onError: onWriteError,
+    onSettled: onWriteSettled,
+    onMutate: onWriteMutate,
   })
 
   const transaction = useWaitForTransaction({
     hash: contractWrite.data?.hash,
+    onSuccess: onTransactionSuccess,
+    onError: onTransactionError,
+    onSettled: onTransactionSettled,
   })
   return (
     <button
@@ -61,10 +77,12 @@ export default function WagmiTransactionButton({
         .filter(Boolean)
         .join(' ')}
       {...props}
-      disabled={!contractWrite?.write}
-      onClick={() =>
-        contractWrite.writeAsync?.().catch((err) => console.error(err))
+      disabled={
+        !contractWrite?.write ||
+        contractWrite?.isLoading ||
+        transaction?.isLoading
       }
+      onClick={() => contractWrite.write?.()}
     >
       {contractWrite?.isLoading ? (
         <>
@@ -73,7 +91,7 @@ export default function WagmiTransactionButton({
         </>
       ) : transaction?.isLoading ? (
         <>
-          <span>Confirming </span>
+          <span>Confirming</span>
           <Spinner />
         </>
       ) : (

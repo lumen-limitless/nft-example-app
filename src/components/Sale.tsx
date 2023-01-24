@@ -118,15 +118,13 @@ export default function Sale() {
           className="w-full rounded bg-blue-500 p-3 drop-shadow"
           config={config}
           name={`Mint ${numTokens} NFT${numTokens > 1 ? "'s" : ''}`}
-          onSuccess={(data) => {
-            t('info', 'Transaction sent')
-            console.debug(data)
-            data.wait().then(() => {
-              t('success', 'Transaction confirmed')
-              setNumTokensInput('')
-            })
+          onWriteSuccess={() => t('info', 'Transaction submitted')}
+          onTransactionSuccess={(receipt) => {
+            console.debug(receipt)
+            t('success', 'Transaction confirmed')
+            setNumTokensInput('')
           }}
-          onError={() => t('error', 'Transaction failed')}
+          onTransactionError={() => t('error', 'Transaction failed')}
         />
       ) : (
         <div className="p-3">Insufficient Balance</div>

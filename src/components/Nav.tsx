@@ -5,8 +5,7 @@ import { Icon } from '@iconify/react'
 import Button from './ui/Button'
 import { clsx } from 'clsx'
 import { useUI } from '../hooks/useUI'
-import { ConnectKitButton } from 'connectkit'
-
+import { Web3Button } from '@web3modal/react'
 const social = [
   {
     name: 'twitter',
@@ -64,7 +63,7 @@ export default function Nav() {
               ))}
             </div>
 
-            <ConnectKitButton />
+            <Web3Button />
 
             <Button
               className="sm:hidden"

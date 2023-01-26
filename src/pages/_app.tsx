@@ -3,18 +3,29 @@ import type { AppProps } from 'next/app'
 import AppLayout from '../layouts/AppLayout'
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
-import { createClient, goerli, WagmiConfig } from 'wagmi'
-import { hardhat } from 'wagmi/chains'
-import { ConnectKitProvider, getDefaultClient } from 'connectkit'
+import { createClient, goerli, WagmiConfig, configureChains } from 'wagmi'
 import { useEffect, useState } from 'react'
+import {
+  EthereumClient,
+  modalConnectors,
+  walletConnectProvider,
+} from '@web3modal/ethereum'
+import { Web3Modal } from '@web3modal/react'
 
-const wagmiClient = createClient(
-  getDefaultClient({
-    appName: process.env.NEXT_PUBLIC_APP_NAME || '',
-    alchemyId: '9WA5ju6LZtjbnuhzqCedTtDoDXDIwNH6',
-    chains: [goerli, hardhat],
-  })
-)
+const chains = [goerli]
+
+// Wagmi client
+const { provider } = configureChains(chains, [
+  walletConnectProvider({ projectId: '37c5a16b162db5dc5504f16a8e6c1717' }),
+])
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors: modalConnectors({ appName: 'web3Modal', chains }),
+  provider,
+})
+
+// Web3Modal Ethereum Client
+const ethereumClient = new EthereumClient(wagmiClient, chains)
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [ready, setReady] = useState(false)
@@ -40,17 +51,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Head>
 
           <WagmiConfig client={wagmiClient}>
-            <ConnectKitProvider
-              options={{
-                disclaimer:
-                  'Testing purposes only. Do not send real funds to contracts.',
-              }}
-            >
-              <AppLayout>
-                <Component {...pageProps} />
-              </AppLayout>
-            </ConnectKitProvider>
+            <AppLayout>
+              <Component {...pageProps} />
+            </AppLayout>
           </WagmiConfig>
+          <Web3Modal
+            projectId="37c5a16b162db5dc5504f16a8e6c1717"
+            ethereumClient={ethereumClient}
+          />
         </>
       ) : null}
     </>

@@ -1,0 +1,20 @@
+export default function Logo() {
+  return (
+    <svg
+      width="20"
+      height="35"
+      viewBox="0 0 81 141"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.272728 94V0.909088H11.5455V84H54.8182V94H0.272728Z"
+        fill="#C49437"
+      />
+      <path
+        d="M26.2727 141V47.9091H37.5455V131H80.8182V141H26.2727Z"
+        fill="#C49437"
+      />
+    </svg>
+  )
+}

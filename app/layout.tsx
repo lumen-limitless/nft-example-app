@@ -50,7 +50,7 @@ export default function RootLayout({
 
           <Toaster />
 
-          <header className="z-20" id="header">
+          <header className="z-50" id="header">
             <Nav />
           </header>
 

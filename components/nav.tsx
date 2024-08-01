@@ -50,7 +50,7 @@ const social = [
 export const Nav: React.FC = () => {
   return (
     <>
-      <nav className="mx-auto w-full max-w-7xl px-6 py-12 md:px-9 lg:px-12">
+      <nav className="z-50 w-full max-w-7xl px-6 py-12 md:px-9 lg:px-12">
         <div className="relative flex h-12 items-center justify-between">
           <Logo />
 
@@ -96,7 +96,21 @@ export const Nav: React.FC = () => {
                 </svg>
               </SheetTrigger>
 
-              <SheetContent></SheetContent>
+              <SheetContent className="border-none bg-black/20 px-0 backdrop-blur-md">
+                <nav>
+                  <div className="relative flex h-full w-full flex-col gap-3 pt-36">
+                    <Link
+                      href={'/'}
+                      className={cn(
+                        'border-l-2 border-blue-800',
+                        'mx-auto inline-flex w-full items-center justify-center p-1 text-sm font-medium text-gray-100 hover:text-gray-300',
+                      )}
+                    >
+                      Home
+                    </Link>
+                  </div>
+                </nav>
+              </SheetContent>
             </Sheet>
           </div>
         </div>

@@ -1488,9 +1488,6 @@ export const iMulticall3Abi = [
 // NFT
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/**
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
- */
 export const nftAbi = [
   {
     type: 'constructor',
@@ -1925,16 +1922,8 @@ export const nftAbi = [
   { type: 'error', inputs: [], name: 'URIQueryForNonexistentToken' },
 ] as const
 
-/**
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
- */
-export const nftAddress = {
-  11155111: '0xCA19eac9109f7f482C669670781eDEe696657347',
-} as const
+export const nftAddress = '0xCA19eac9109f7f482C669670781eDEe696657347' as const
 
-/**
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
- */
 export const nftConfig = { address: nftAddress, abi: nftAbi } as const
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3733,8 +3722,6 @@ export const useSimulateIMulticall3TryBlockAndAggregate =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNft = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3743,8 +3730,6 @@ export const useReadNft = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"MAX_MINTABLE"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftMaxMintable = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3754,8 +3739,6 @@ export const useReadNftMaxMintable = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"MAX_SUPPLY"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftMaxSupply = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3765,8 +3748,6 @@ export const useReadNftMaxSupply = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"MINT_PRICE"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftMintPrice = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3776,8 +3757,6 @@ export const useReadNftMintPrice = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"balanceOf"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftBalanceOf = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3787,8 +3766,6 @@ export const useReadNftBalanceOf = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"explicitOwnershipOf"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftExplicitOwnershipOf =
   /*#__PURE__*/ createUseReadContract({
@@ -3799,8 +3776,6 @@ export const useReadNftExplicitOwnershipOf =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"explicitOwnershipsOf"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftExplicitOwnershipsOf =
   /*#__PURE__*/ createUseReadContract({
@@ -3811,8 +3786,6 @@ export const useReadNftExplicitOwnershipsOf =
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"getApproved"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftGetApproved = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3822,8 +3795,6 @@ export const useReadNftGetApproved = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"isApprovedForAll"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftIsApprovedForAll = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3833,8 +3804,6 @@ export const useReadNftIsApprovedForAll = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"mintedCount"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftMintedCount = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3844,8 +3813,6 @@ export const useReadNftMintedCount = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"name"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftName = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3855,8 +3822,6 @@ export const useReadNftName = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"owner"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftOwner = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3866,8 +3831,6 @@ export const useReadNftOwner = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"ownerOf"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftOwnerOf = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3877,8 +3840,6 @@ export const useReadNftOwnerOf = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"supportsInterface"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftSupportsInterface = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3888,8 +3849,6 @@ export const useReadNftSupportsInterface = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"symbol"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftSymbol = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3899,8 +3858,6 @@ export const useReadNftSymbol = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"tokenURI"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftTokenUri = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3910,8 +3867,6 @@ export const useReadNftTokenUri = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"tokensOfOwner"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftTokensOfOwner = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3921,8 +3876,6 @@ export const useReadNftTokensOfOwner = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"tokensOfOwnerIn"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftTokensOfOwnerIn = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3932,8 +3885,6 @@ export const useReadNftTokensOfOwnerIn = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useReadContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"totalSupply"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useReadNftTotalSupply = /*#__PURE__*/ createUseReadContract({
   abi: nftAbi,
@@ -3943,8 +3894,6 @@ export const useReadNftTotalSupply = /*#__PURE__*/ createUseReadContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNft = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -3953,8 +3902,6 @@ export const useWriteNft = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"approve"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftApprove = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -3964,8 +3911,6 @@ export const useWriteNftApprove = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"buyPublic"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftBuyPublic = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -3975,8 +3920,6 @@ export const useWriteNftBuyPublic = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"renounceOwnership"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftRenounceOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -3987,8 +3930,6 @@ export const useWriteNftRenounceOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"safeTransferFrom"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftSafeTransferFrom = /*#__PURE__*/ createUseWriteContract(
   { abi: nftAbi, address: nftAddress, functionName: 'safeTransferFrom' },
@@ -3996,8 +3937,6 @@ export const useWriteNftSafeTransferFrom = /*#__PURE__*/ createUseWriteContract(
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"setApprovalForAll"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftSetApprovalForAll =
   /*#__PURE__*/ createUseWriteContract({
@@ -4008,8 +3947,6 @@ export const useWriteNftSetApprovalForAll =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"setBaseURI"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftSetBaseUri = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -4019,8 +3956,6 @@ export const useWriteNftSetBaseUri = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"transferFrom"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftTransferFrom = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -4030,8 +3965,6 @@ export const useWriteNftTransferFrom = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftTransferOwnership =
   /*#__PURE__*/ createUseWriteContract({
@@ -4042,8 +3975,6 @@ export const useWriteNftTransferOwnership =
 
 /**
  * Wraps __{@link useWriteContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"withdraw"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWriteNftWithdraw = /*#__PURE__*/ createUseWriteContract({
   abi: nftAbi,
@@ -4053,8 +3984,6 @@ export const useWriteNftWithdraw = /*#__PURE__*/ createUseWriteContract({
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNft = /*#__PURE__*/ createUseSimulateContract({
   abi: nftAbi,
@@ -4063,8 +3992,6 @@ export const useSimulateNft = /*#__PURE__*/ createUseSimulateContract({
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"approve"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftApprove = /*#__PURE__*/ createUseSimulateContract({
   abi: nftAbi,
@@ -4074,8 +4001,6 @@ export const useSimulateNftApprove = /*#__PURE__*/ createUseSimulateContract({
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"buyPublic"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftBuyPublic = /*#__PURE__*/ createUseSimulateContract({
   abi: nftAbi,
@@ -4085,8 +4010,6 @@ export const useSimulateNftBuyPublic = /*#__PURE__*/ createUseSimulateContract({
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"renounceOwnership"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftRenounceOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4097,8 +4020,6 @@ export const useSimulateNftRenounceOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"safeTransferFrom"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftSafeTransferFrom =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4109,8 +4030,6 @@ export const useSimulateNftSafeTransferFrom =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"setApprovalForAll"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftSetApprovalForAll =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4121,8 +4040,6 @@ export const useSimulateNftSetApprovalForAll =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"setBaseURI"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftSetBaseUri = /*#__PURE__*/ createUseSimulateContract(
   { abi: nftAbi, address: nftAddress, functionName: 'setBaseURI' },
@@ -4130,8 +4047,6 @@ export const useSimulateNftSetBaseUri = /*#__PURE__*/ createUseSimulateContract(
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"transferFrom"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftTransferFrom =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4142,8 +4057,6 @@ export const useSimulateNftTransferFrom =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"transferOwnership"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftTransferOwnership =
   /*#__PURE__*/ createUseSimulateContract({
@@ -4154,8 +4067,6 @@ export const useSimulateNftTransferOwnership =
 
 /**
  * Wraps __{@link useSimulateContract}__ with `abi` set to __{@link nftAbi}__ and `functionName` set to `"withdraw"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useSimulateNftWithdraw = /*#__PURE__*/ createUseSimulateContract({
   abi: nftAbi,
@@ -4165,8 +4076,6 @@ export const useSimulateNftWithdraw = /*#__PURE__*/ createUseSimulateContract({
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftEvent = /*#__PURE__*/ createUseWatchContractEvent({
   abi: nftAbi,
@@ -4175,8 +4084,6 @@ export const useWatchNftEvent = /*#__PURE__*/ createUseWatchContractEvent({
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"Approval"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftApprovalEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4187,8 +4094,6 @@ export const useWatchNftApprovalEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"ApprovalForAll"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftApprovalForAllEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4199,8 +4104,6 @@ export const useWatchNftApprovalForAllEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"BaseUriUpdated"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftBaseUriUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4211,8 +4114,6 @@ export const useWatchNftBaseUriUpdatedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"ConsecutiveTransfer"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftConsecutiveTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4223,8 +4124,6 @@ export const useWatchNftConsecutiveTransferEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"OwnershipTransferred"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftOwnershipTransferredEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4235,8 +4134,6 @@ export const useWatchNftOwnershipTransferredEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"ProvenanceHashUpdated"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftProvenanceHashUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4247,8 +4144,6 @@ export const useWatchNftProvenanceHashUpdatedEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"StartingIndexSet"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftStartingIndexSetEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4259,8 +4154,6 @@ export const useWatchNftStartingIndexSetEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"Transfer"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftTransferEvent =
   /*#__PURE__*/ createUseWatchContractEvent({
@@ -4271,8 +4164,6 @@ export const useWatchNftTransferEvent =
 
 /**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"WhitelistSignerUpdated"`
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xCA19eac9109f7f482C669670781eDEe696657347)
  */
 export const useWatchNftWhitelistSignerUpdatedEvent =
   /*#__PURE__*/ createUseWatchContractEvent({

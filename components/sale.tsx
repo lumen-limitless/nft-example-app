@@ -16,6 +16,7 @@ import {
 import Logo from './logo';
 import { Button } from './ui/button';
 import { Dialog, DialogContent, DialogDescription } from './ui/dialog';
+import { Input } from './ui/input';
 
 const MAX_MINTABLE = 100n;
 const PUBLIC_PRICE = parseUnits('0.0001', 18);
@@ -72,7 +73,9 @@ export const Sale: React.FC = () => {
       setTimeout(() => {
         setDialogOpen(false);
         setTransactionHash(null);
-      }, 1000);
+      }, 2000);
+
+      toast.success('NFT purchased successfully.');
     }
   }, [isTransactionSuccessful]);
 
@@ -130,7 +133,7 @@ export const Sale: React.FC = () => {
           {Number(MAX_MINTABLE - mintedCount!)} tokens available for minting.
         </span>
       }
-      <input
+      <Input
         type="text"
         onChange={(e) => {
           e.preventDefault();
@@ -147,7 +150,6 @@ export const Sale: React.FC = () => {
         }}
         value={numTokensInput}
         placeholder="Enter number of tokens"
-        className="w-full rounded border-2 border-gray-800 bg-black p-3 focus:border-gray-700 focus:outline-none"
       />
       {numTokensInput === '' ? (
         <div className="p-6" />
@@ -170,7 +172,7 @@ export const Sale: React.FC = () => {
         <div className="p-3">Insufficient Balance</div>
       )}
 
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <Dialog open={dialogOpen}>
         <DialogContent>
           {isTransactionLoading && (
             <>

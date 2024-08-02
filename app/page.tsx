@@ -24,8 +24,11 @@ export default function Page({}: PageProps) {
               <div className="pointer-events-none absolute -right-10 -top-5 h-[500px] w-[500px] bg-gradient-radial from-blue-500/20 to-transparent blur-3xl" />
               <div className="pointer-events-none absolute -bottom-5 -left-10 -z-[1] h-[500px] w-[500px] bg-gradient-radial from-purple-500/20 to-transparent blur-3xl" />
               <Canvas>
-                <ambientLight intensity={1.0} />
-                <spotLight intensity={25} position={[0, 33, 33]} />
+                <spotLight
+                  intensity={500}
+                  position={[0, 10, 10]}
+                  castShadow={true}
+                />
                 <Suspense>
                   <Model />
                 </Suspense>

@@ -14,7 +14,6 @@ const config = getDefaultConfig({
   appName: 'NFT EXAMPLE',
   projectId: 'YOUR_PROJECT_ID',
   chains: [sepolia],
-  ssr: false,
 });
 
 const queryClient = new QueryClient();

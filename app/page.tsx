@@ -1,14 +1,21 @@
 'use client';
 
 import Model from '@/components/model';
-import { Sale } from '@/components/sale';
 import { Canvas } from '@react-three/fiber';
+import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
 type PageProps = {
   params: {};
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string | string[] | undefined>;
 };
+
+const Sale = dynamic(
+  () => import('@/components/sale').then((mod) => mod.Sale),
+  {
+    ssr: false,
+  },
+);
 
 export default function Page({}: PageProps) {
   return (

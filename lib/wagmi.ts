@@ -1841,32 +1841,6 @@ export const nftAbi = [
     type: 'event',
     anonymous: false,
     inputs: [
-      {
-        name: '_hash',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'ProvenanceHashUpdated',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_value',
-        internalType: 'uint256',
-        type: 'uint256',
-        indexed: false,
-      },
-    ],
-    name: 'StartingIndexSet',
-  },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
       { name: 'from', internalType: 'address', type: 'address', indexed: true },
       { name: 'to', internalType: 'address', type: 'address', indexed: true },
       {
@@ -1878,24 +1852,14 @@ export const nftAbi = [
     ],
     name: 'Transfer',
   },
-  {
-    type: 'event',
-    anonymous: false,
-    inputs: [
-      {
-        name: '_whitelistSigner',
-        internalType: 'address',
-        type: 'address',
-        indexed: false,
-      },
-    ],
-    name: 'WhitelistSignerUpdated',
-  },
   { type: 'error', inputs: [], name: 'ApprovalCallerNotOwnerNorApproved' },
   { type: 'error', inputs: [], name: 'ApprovalQueryForNonexistentToken' },
   { type: 'error', inputs: [], name: 'BalanceQueryForZeroAddress' },
+  { type: 'error', inputs: [], name: 'InsufficientPayment' },
   { type: 'error', inputs: [], name: 'InvalidQueryRange' },
+  { type: 'error', inputs: [], name: 'MaxSupplyReached' },
   { type: 'error', inputs: [], name: 'MintERC2309QuantityExceedsLimit' },
+  { type: 'error', inputs: [], name: 'MintLimitReached' },
   { type: 'error', inputs: [], name: 'MintToZeroAddress' },
   { type: 'error', inputs: [], name: 'MintZeroQuantity' },
   { type: 'error', inputs: [], name: 'NotCompatibleWithSpotMints' },
@@ -1922,7 +1886,7 @@ export const nftAbi = [
   { type: 'error', inputs: [], name: 'URIQueryForNonexistentToken' },
 ] as const
 
-export const nftAddress = '0xCA19eac9109f7f482C669670781eDEe696657347' as const
+export const nftAddress = '0x9D6Fdf3eFd7b7419ADd7a157E42d1EA3a2Be4856' as const
 
 export const nftConfig = { address: nftAddress, abi: nftAbi } as const
 
@@ -4133,26 +4097,6 @@ export const useWatchNftOwnershipTransferredEvent =
   })
 
 /**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"ProvenanceHashUpdated"`
- */
-export const useWatchNftProvenanceHashUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: nftAbi,
-    address: nftAddress,
-    eventName: 'ProvenanceHashUpdated',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"StartingIndexSet"`
- */
-export const useWatchNftStartingIndexSetEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: nftAbi,
-    address: nftAddress,
-    eventName: 'StartingIndexSet',
-  })
-
-/**
  * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"Transfer"`
  */
 export const useWatchNftTransferEvent =
@@ -4160,16 +4104,6 @@ export const useWatchNftTransferEvent =
     abi: nftAbi,
     address: nftAddress,
     eventName: 'Transfer',
-  })
-
-/**
- * Wraps __{@link useWatchContractEvent}__ with `abi` set to __{@link nftAbi}__ and `eventName` set to `"WhitelistSignerUpdated"`
- */
-export const useWatchNftWhitelistSignerUpdatedEvent =
-  /*#__PURE__*/ createUseWatchContractEvent({
-    abi: nftAbi,
-    address: nftAddress,
-    eventName: 'WhitelistSignerUpdated',
   })
 
 /**

@@ -9,7 +9,7 @@ export default defineConfig({
     foundry({
       project: '../nft-example-contract',
       deployments: {
-        NFT: '0xCA19eac9109f7f482C669670781eDEe696657347',
+        NFT: '0x9D6Fdf3eFd7b7419ADd7a157E42d1EA3a2Be4856',
       },
     }),
   ],

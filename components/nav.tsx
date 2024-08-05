@@ -25,7 +25,7 @@ const social = [
   },
   {
     name: 'opensea',
-    link: 'https://testnets.opensea.io/collection/nft-example-59',
+    link: 'https://testnets.opensea.io/collection/nft-example-60',
     icon: <Icon icon="simple-icons:opensea" />,
   },
   {
